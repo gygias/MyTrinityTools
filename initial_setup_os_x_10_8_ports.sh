@@ -5,6 +5,7 @@ if [ ! "${PWD##*/}" = "build" ]; then
     exit 1
 fi
 
+/bin/echo "Creating xcodeproj…"
 /opt/local/bin/cmake ../ -GXcode \
     -DMYSQL_ADD_INCLUDE_PATH=/opt/local/include/mysql5/mysql \
     -DREADLINE_INCLUDE_DIR=/opt/local/include \
@@ -28,10 +29,11 @@ fi
 /bin/cat ../../dbs/TDB_full_434.02_2012_08_30.sql | /opt/local/bin/mysql5 -u root world
 
 echo "Importing updates…"
-/usr/bin/find ../sql/updates/world -name "*_world_*" -exec bash -c "echo {}; cat \"{}\" | mysql5 -u root world" \;
+/usr/bin/find ../sql/updates/world -exec bash -c "echo {}; cat \"{}\" | mysql5 -u root world" \;
 /usr/bin/find ../sql/updates/characters -exec bash -c "echo {}; cat \"{}\" | mysql5 -u root characters" \;
 /usr/bin/find ../sql/updates/auth -exec bash -c "echo {}; cat \"{}\" | mysql5 -u root auth" \;
 
 if [ "$1" = "build" ]; then
+    /bin/echo "Activating unibody space heater…"
     /usr/bin/xcodebuild -target install
 fi
