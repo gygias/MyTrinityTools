@@ -13,8 +13,6 @@ cmake ../ -GXcode \
     -DPREFIX=/opt/trinitycore \
     -DMYSQL_LIBRARY=/opt/local/lib/mysql5/mysql/libmysqlclient_r.dylib
 
-echo "Dropping previous db…"
-
 /opt/local/bin/mysql5 -u root -e "drop database world"
 /opt/local/bin/mysql5 -u root -e "drop database characters"
 /opt/local/bin/mysql5 -u root -e "drop database auth"
