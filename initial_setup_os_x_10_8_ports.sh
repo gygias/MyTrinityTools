@@ -4,6 +4,7 @@ if [ ! "${PWD##*/}" = "build" ]; then
     echo "run me from <srcroot>/build"
     exit 1
 fi
+
 cmake ../ -GXcode \
     -DMYSQL_ADD_INCLUDE_PATH=/opt/local/include/mysql5/mysql \
     -DREADLINE_INCLUDE_DIR=/opt/local/include \
@@ -14,7 +15,6 @@ cmake ../ -GXcode \
     -DMYSQL_LIBRARY=/opt/local/lib/mysql5/mysql/libmysqlclient_r.dylib
 
 echo "Dropping previous db…"
-
 /opt/local/bin/mysql5 -u root -e "drop database world"
 /opt/local/bin/mysql5 -u root -e "drop database characters"
 /opt/local/bin/mysql5 -u root -e "drop database auth"
@@ -32,4 +32,4 @@ echo "Importing updates…"
 /usr/bin/find ../sql/updates/characters -exec bash -c "echo {}; cat \"{}\" | mysql5 -u root characters" \;
 /usr/bin/find ../sql/updates/auth -exec bash -c "echo {}; cat \"{}\" | mysql5 -u root auth" \;
 
-#xcodebuild -target install
+xcodebuild -target install
