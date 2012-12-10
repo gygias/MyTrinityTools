@@ -1,0 +1,4 @@
+sql add account:
+
+INSERT INTO ACCOUNT (username, sha_pass_hash, email, expansion) VALUES ('username', LOWER(SHA1(UPPER(CONCAT('username', ':', 'password')))), 'email', 2)
+
